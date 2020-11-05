@@ -25,7 +25,7 @@ class PostFactory extends Factory
             'title' => $this->faker->words(3, true),
             'slug' => $this->faker->slug(),
             'description' => $this->faker->words(5, true),
-            'content' => $this->faker->paragraph(4),
+            'content' => $this->faker->paragraph(15),
             'thumbnail' => '',
             'created_at' => $this->faker->dateTime(),
             'updated_at' => $this->faker->dateTime(),

@@ -19,6 +19,11 @@ use App\Http\Controllers\Admin\PostController;
 Route::prefix('/admin')->group(function () {
     Route::get('/', [MainController::class, 'index'])->name('admin.index');
     Route::resource('/posts', PostController::class)->names([
-        'index' => 'admin.posts'
+        'index' => 'admin.posts.index',
+        'edit' => 'admin.posts.edit',
+        'update' => 'admin.posts.update',
+        'create' => 'admin.posts.create',
+        'store' => 'admin.posts.store',
+        'destroy' => 'admin.posts.destroy',
     ]);
 });
