@@ -25,5 +25,5 @@ Route::prefix('/admin')->group(function () {
         'create' => 'admin.posts.create',
         'store' => 'admin.posts.store',
         'destroy' => 'admin.posts.destroy',
-    ]);
+    ])->except(['show']);
 });

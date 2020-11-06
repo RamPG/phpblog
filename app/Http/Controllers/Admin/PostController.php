@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StorePost;
+use App\Http\Requests\UpdatePost;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use App\Helpers\StringHelpers;
 
 class PostController extends Controller
 {
@@ -37,11 +40,16 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'title' => 'required|min:5|unique:App\Models\Post,title',
+            'content' => 'required|min:50',
+            'thumbnail' => 'required|image',
+        ]);
         $folder = date('Y-m-d');
         $thumbnail = $request->file('thumbnail')->store("images/{$folder}");
         Post::create([
             'title' => $request->input('title'),
-            'description' => substr($request->input('content'), 0, strpos($request->input('content'), ' ', 100)),
+            'description' => StringHelpers::trimSpaceBeforeSpace($request->input('content'), 50),
             'content' => $request->input('content'),
             'thumbnail' => $thumbnail,
         ]);
@@ -54,10 +62,6 @@ class PostController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -81,19 +85,24 @@ class PostController extends Controller
     public function update(Request $request, $id)
     {
         $post = Post::find($id);
+        $request->validate([
+            'title' => 'required|min:5|unique:App\Models\Post,title,' . $id,
+            'content' => 'required|min:50',
+            'thumbnail' => 'image',
+        ]);
         if ($request->hasFile('thumbnail')) {
             $folder = date('Y-m-d');
             $thumbnail = $request->file('thumbnail')->store("images/{$folder}");
             $post->update([
                 'title' => $request->input('title'),
-                'description' => substr($request->input('content'), 0, strpos($request->input('content'), ' ', 50)),
+                'description' => StringHelpers::trimSpaceBeforeSpace($request->input('content'), 50),
                 'content' => $request->input('content'),
                 'thumbnail' => $thumbnail,
             ]);
         } else {
             $post->update([
                 'title' => $request->input('title'),
-                'description' => substr($request->input('content'), 0, strpos($request->input('content'), ' ', 50)),
+                'description' => StringHelpers::trimSpaceBeforeSpace($request->input('content'), 50),
                 'content' => $request->input('content'),
             ]);
         }

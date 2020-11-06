@@ -5,7 +5,15 @@
             <h3 class="card-title">Редактор поста</h3>
         </div>
         <!-- /.card-header -->
-        <!-- form start -->
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
         <form role="form" method="post" action="{{ route('admin.posts.update', ['post' => $post->id]) }}" enctype="multipart/form-data">
             @csrf
             @method('PUT')
