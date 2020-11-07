@@ -11,12 +11,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6f7a9d87-ae84-4537-abb3-aa64d46f653e" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/myblog.lar.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/myblog.lar.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/PostController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/PostController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/posts/create.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/posts/create.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/admin/posts/edit.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/posts/edit.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/admin/posts/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/admin/posts/index.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -161,21 +158,21 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views/admin/layouts" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/resources/views" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="P:\Programs\CustomServer\httpd\Apache24\htdocs\myblog.lar\app\Helpers" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="P:\Programs\CustomServer\httpd\Apache24\htdocs\myblog.lar\resources\views" />
       <recent name="P:\Programs\CustomServer\httpd\Apache24\htdocs\myblog.lar\resources\views\admin\layouts" />
       <recent name="P:\Programs\CustomServer\httpd\Apache24\htdocs\myblog.lar\public\js" />
       <recent name="P:\Programs\CustomServer\httpd\Apache24\htdocs\myblog.lar\resources" />
       <recent name="P:\Programs\CustomServer\httpd\Apache24\htdocs\myblog.lar\resources\assets\admin\js" />
-      <recent name="P:\Programs\CustomServer\httpd\Apache24\htdocs\myblog.lar\resources\assets\admin\css" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="P:\Programs\CustomServer\httpd\Apache24\htdocs\myblog.lar\app\Helpers" />
     </key>
   </component>
   <component name="RunManager">
@@ -196,7 +193,8 @@
       <workItem from="1604479731249" duration="2074000" />
       <workItem from="1604503158469" duration="12373000" />
       <workItem from="1604566013284" duration="21389000" />
-      <workItem from="1604661361533" duration="4739000" />
+      <workItem from="1604661361533" duration="12070000" />
+      <workItem from="1604743276139" duration="7341000" />
     </task>
     <servers />
   </component>
@@ -224,10 +222,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="474" y="135" key="NewPhpClassDialog/0.0.1536.824@0.0.1536.824" timestamp="1604663218904" />
-    <state x="604" y="335" key="NewPhpFileDialog" timestamp="1604662368406">
+    <state x="604" y="335" key="NewPhpFileDialog" timestamp="1604683155784">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="604" y="335" key="NewPhpFileDialog/0.0.1536.824@0.0.1536.824" timestamp="1604662368406" />
+    <state x="604" y="335" key="NewPhpFileDialog/0.0.1536.824@0.0.1536.824" timestamp="1604683155784" />
     <state x="425" y="187" key="run.anything.popup" timestamp="1604510467430">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

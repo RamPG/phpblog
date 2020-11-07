@@ -14,6 +14,7 @@
                     <th>#</th>
                     <th>Заголовок</th>
                     <th>Описание</th>
+                    <th>Дата создания</th>
                     <th>Действие</th>
                 </tr>
                 </thead>
@@ -22,6 +23,7 @@
                         <td>{{ $post->id }}</td>
                         <td>{{ $post->title }}</td>
                         <td>{{ $post->description }}</td>
+                        <td>{{ $post->created_at }}</td>
                         <td>
                             <a
                                 class="btn btn-info btn-sm float-left mr-1"

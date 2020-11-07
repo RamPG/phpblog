@@ -3,8 +3,6 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StorePost;
-use App\Http\Requests\UpdatePost;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Helpers\StringHelpers;
@@ -41,7 +39,7 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|min:5|unique:App\Models\Post,title',
+            'title' => 'required|min:5|unique:posts,title',
             'content' => 'required|min:50',
             'thumbnail' => 'required|image',
         ]);
@@ -86,7 +84,7 @@ class PostController extends Controller
     {
         $post = Post::find($id);
         $request->validate([
-            'title' => 'required|min:5|unique:App\Models\Post,title,' . $id,
+            'title' => 'required|min:5|unique:posts,title,' . $id,
             'content' => 'required|min:50',
             'thumbnail' => 'image',
         ]);
