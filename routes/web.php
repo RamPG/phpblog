@@ -20,7 +20,7 @@ use App\Http\Controllers\UserController;
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
-Route::prefix('/admin')->group(function () {
+Route::group(['prefix' => '/admin', 'middleware' => 'admin'], function () {
     Route::get('/', [MainController::class, 'index'])->name('admin.index');
     Route::resource('/posts', PostController::class)->names([
         'index' => 'admin.posts.index',
@@ -31,8 +31,13 @@ Route::prefix('/admin')->group(function () {
         'destroy' => 'admin.posts.destroy',
     ])->except(['show']);
 });
-Route::get('/login', [UserController::class, 'loginForm'])->name('loginForm');
-Route::post('/login', [UserController::class, 'login'])->name('login');
-Route::get('/register', [UserController::class, 'registerForm'])->name('registerForm');
-Route::post('/register', [UserController::class, 'register'])->name('register');
-Route::get('/logout', [UserController::class, 'logout'])->name('logout');
+Route::group(['middleware' => 'guest'], function () {
+    Route::get('/login', [UserController::class, 'loginForm'])->name('loginForm');
+    Route::post('/login', [UserController::class, 'login'])->name('login');
+    Route::get('/register', [UserController::class, 'registerForm'])->name('registerForm');
+    Route::post('/register', [UserController::class, 'register'])->name('register');
+});
+Route::group(['middleware' => 'auth'], function () {
+    Route::get('/logout', [UserController::class, 'logout'])->name('logout');
+});
+
