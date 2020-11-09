@@ -17,9 +17,8 @@ use \App\Http\Controllers\Admin\MainController;
 use App\Http\Controllers\Admin\PostController;
 use App\Http\Controllers\UserController;
 
-Route::get('/', function () {
-    return view('posts.post');
-})->name('home');
+Route::get('/', [\App\Http\Controllers\PostController::class, 'index'])->name('home');
+Route::get('/post/{id}', [\App\Http\Controllers\PostController::class, 'show'])->name('post.show');
 Route::group(['prefix' => '/admin', 'middleware' => 'admin'], function () {
     Route::get('/', [MainController::class, 'index'])->name('admin.index');
     Route::resource('/posts', PostController::class)->names([

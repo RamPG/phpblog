@@ -47,7 +47,7 @@ class PostController extends Controller
         $thumbnail = $request->file('thumbnail')->store("images/{$folder}");
         Post::create([
             'title' => $request->input('title'),
-            'description' => StringHelpers::trimSpaceBeforeSpace($request->input('content'), 50),
+            'description' => StringHelpers::trimSpaceBeforeSpace($request->input('content'), 100),
             'content' => $request->input('content'),
             'thumbnail' => $thumbnail,
         ]);
@@ -93,14 +93,14 @@ class PostController extends Controller
             $thumbnail = $request->file('thumbnail')->store("images/{$folder}");
             $post->update([
                 'title' => $request->input('title'),
-                'description' => StringHelpers::trimSpaceBeforeSpace($request->input('content'), 50),
+                'description' => StringHelpers::trimSpaceBeforeSpace($request->input('content'), 100),
                 'content' => $request->input('content'),
                 'thumbnail' => $thumbnail,
             ]);
         } else {
             $post->update([
                 'title' => $request->input('title'),
-                'description' => StringHelpers::trimSpaceBeforeSpace($request->input('content'), 50),
+                'description' => StringHelpers::trimSpaceBeforeSpace($request->input('content'), 100),
                 'content' => $request->input('content'),
             ]);
         }

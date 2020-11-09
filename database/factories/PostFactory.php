@@ -23,10 +23,9 @@ class PostFactory extends Factory
     {
         return [
             'title' => $this->faker->words(3, true),
-            'slug' => $this->faker->slug(),
-            'description' => $this->faker->words(5, true),
-            'content' => $this->faker->paragraph(15),
-            'thumbnail' => '',
+            'description' => $this->faker->words(10, true),
+            'content' => $this->faker->paragraph(20),
+            'thumbnail' => 'images/2020-11-09/nM5Wytj2W90OiYEuBYLROUipGl8PKByVbVm0iTxg.jpeg',
             'created_at' => $this->faker->dateTime(),
             'updated_at' => $this->faker->dateTime(),
         ];
