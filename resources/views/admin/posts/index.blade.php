@@ -1,12 +1,14 @@
 @extends('layouts.admin')
-
+@section('title')
+    Административная панель
+@endsection
 @section('content')
     <div class="card">
         <div class="card-header justify-content-between">
 
-            <h3 class="card-title">Таблица постов</h3>
+            <h3 class="card-title">Таблица статей</h3>
         </div>
-        <a class="btn btn-primary" href="{{ route('admin.posts.create') }}">Создать пост</a>
+        <a class="btn btn-primary" href="{{ route('admin.posts.create') }}">Создать статью</a>
         <div class="card-body">
             <table class="table table-bordered">
                 <thead>

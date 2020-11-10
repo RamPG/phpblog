@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Blog Home - Start Bootstrap Template</title>
+    <title>@yield('title')</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
@@ -23,7 +23,6 @@
 
     <div class="row">
         @yield('posts')
-        @include('layouts.sidebar')
     </div>
 <script src="{{ asset('js/index.js') }}"></script>
 

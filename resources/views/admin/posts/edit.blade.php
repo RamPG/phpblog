@@ -1,8 +1,11 @@
 @extends('layouts.admin')
+@section('title')
+    Редактирование статьи
+@endsection
 @section('content')
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">Редактор поста</h3>
+            <h3 class="card-title">Редактор статьи</h3>
         </div>
         <!-- /.card-header -->
         @if ($errors->any())

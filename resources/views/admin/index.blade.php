@@ -1,5 +1,7 @@
 @extends('layouts.admin')
-
+@section('title')
+    Административная панель
+@endsection
 @section('content')
     <section class="content">
         <!-- Default box -->

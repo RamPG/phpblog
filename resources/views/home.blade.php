@@ -1,23 +1,19 @@
 @extends('layouts.index')
-
+@section('title')
+    Главная страница
+@endsection
 @section('posts')
     <div class="col-md-8">
-
-        <h1 class="my-4">Page Heading
-            <small>Secondary Text</small>
-        </h1>
-
         @foreach($posts as $post)
         <div class="card mb-4">
-            <img class="card-img-top" src="{{ asset('storage/' . $post->thumbnail) }}" alt="Card image cap">
+            <img class="card-img-top" src="{{ asset('storage/' . $post->thumbnail) }}" width="750" height="300">
             <div class="card-body">
-                <h2 class="card-title">{{ $post->title }}</h2>
+                <h2 class="">{{ $post->title }}</h2>
                 <p class="card-text">{{ $post ->description }}</p>
-                <a href="#" class="btn btn-primary">Read More &rarr;</a>
+                <a href="{{ route('post.show', ['id' => $post->id]) }}" class="btn btn-primary">Читать полностью &rarr;</a>
             </div>
             <div class="card-footer text-muted">
-                Posted on {{ $post->created_at }}
-                <a href="#">Start Bootstrap</a>
+                Создано: {{ $post->created_at->format('H:i:s d.m.Y') }}
             </div>
         </div>
         @endforeach

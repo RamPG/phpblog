@@ -1,46 +1,26 @@
 @extends('layouts.index')
-
+@section('title')
+    {{ $post-> title }}
+@endsection
 @section('posts')
     <div class="col-lg-8">
 
         <!-- Title -->
         <h1 class="mt-4">{{ $post->title }}</h1>
 
-        <!-- Author -->
-        <p class="lead">
-            by
-            <a href="#">Start Bootstrap</a>
-        </p>
-
         <hr>
 
         <!-- Date/Time -->
-        <p>{{ $post->created_at }}</p>
+        <p>Создано: {{ $post->created_at }}</p>
 
         <hr>
 
         <!-- Preview Image -->
         <img class="img-fluid rounded" src="{{ asset('storage/' . $post->thumbnail) }}" alt="">
-
+        <p> {{ $post->content }} </p>
         <hr>
 
         <!-- Post Content -->
-        <p {{ $post->content }}</p>
-
-        <blockquote class="blockquote">
-            <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer posuere erat a ante.</p>
-            <footer class="blockquote-footer">Someone famous in
-                <cite title="Source Title">Source Title</cite>
-            </footer>
-        </blockquote>
-
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error, nostrum, aliquid, animi, ut quas placeat
-            totam sunt tempora commodi nihil ullam alias modi dicta saepe minima ab quo voluptatem obcaecati?</p>
-
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Harum, dolor quis. Sunt, ut, explicabo, aliquam
-            tenetur ratione tempore quidem voluptates cupiditate voluptas illo saepe quaerat numquam recusandae? Qui,
-            necessitatibus, est!</p>
-
         <hr>
 
         <!-- Comments Form -->
