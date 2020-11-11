@@ -9,12 +9,13 @@ class PostController extends Controller
 {
     public function index()
     {
-        $posts = Post::paginate(5);
+        $posts = Post::orderBy('created_at', 'desc')->paginate(5);
         return view('home', compact('posts'));
     }
-    public function show($id)
+    public function show($slug)
     {
-        $post = Post::find($id);
-        return view('post', compact('post'));
+        $post = Post::where('slug', $slug)->firstOrFail();
+        $comments = Post::where('slug', $slug)->firstOrFail()->comments;
+        return view('post', compact('post', 'comments'));
     }
 }

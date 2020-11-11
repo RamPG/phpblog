@@ -10,7 +10,7 @@
             <div class="card-body">
                 <h2 class="">{{ $post->title }}</h2>
                 <p class="card-text">{{ $post ->description }}</p>
-                <a href="{{ route('post.show', ['id' => $post->id]) }}" class="btn btn-primary">Читать полностью &rarr;</a>
+                <a href="{{ route('post.show', ['slug' => $post->slug]) }}" class="btn btn-primary">Читать полностью &rarr;</a>
             </div>
             <div class="card-footer text-muted">
                 Создано: {{ $post->created_at->format('H:i:s d.m.Y') }}

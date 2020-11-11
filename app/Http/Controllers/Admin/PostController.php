@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use App\Helpers\StringHelpers;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -47,6 +48,7 @@ class PostController extends Controller
         $thumbnail = $request->file('thumbnail')->store("images/{$folder}");
         Post::create([
             'title' => $request->input('title'),
+            'slug' => Str::slug($request->input('title')),
             'description' => StringHelpers::trimSpaceBeforeSpace($request->input('content'), 100),
             'content' => $request->input('content'),
             'thumbnail' => $thumbnail,
@@ -93,6 +95,7 @@ class PostController extends Controller
             $thumbnail = $request->file('thumbnail')->store("images/{$folder}");
             $post->update([
                 'title' => $request->input('title'),
+                'slug' => Str::slug($request->input('title')),
                 'description' => StringHelpers::trimSpaceBeforeSpace($request->input('content'), 100),
                 'content' => $request->input('content'),
                 'thumbnail' => $thumbnail,
@@ -100,6 +103,7 @@ class PostController extends Controller
         } else {
             $post->update([
                 'title' => $request->input('title'),
+                'slug' => Str::slug($request->input('title')),
                 'description' => StringHelpers::trimSpaceBeforeSpace($request->input('content'), 100),
                 'content' => $request->input('content'),
             ]);

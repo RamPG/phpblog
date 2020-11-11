@@ -16,8 +16,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers;
 
 Route::get('/', [Controllers\PostController::class, 'index'])->name('home');
-Route::get('/post/{id}', [Controllers\PostController::class, 'show'])->name('post.show');
+Route::get('/post/{slug}', [Controllers\PostController::class, 'show'])->name('post.show');
 
+Route::post('/comments/store', [Controllers\CommentController::class, 'store'])->name('comments.store');
 
 Route::group(['prefix' => '/admin', 'middleware' => 'admin'], function () {
     Route::get('/', [Controllers\Admin\MainController::class, 'index'])->name('admin.index');
