@@ -49,8 +49,7 @@
                 </div>
             </div>
         @endforeach
-
-
+    {{ $comments->onEachSide(1)->links('pagination::bootstrap-4') }}
         <!-- Comment with nested comments -->
     </div>
 @endsection
