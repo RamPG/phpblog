@@ -27,11 +27,11 @@
         <div class="card my-4">
             <h5 class="card-header">Оставить комментарий:</h5>
             <div class="card-body">
-                <form method="post" action="{{ route('comments.store') }}">
+                <form method="post" action="{{ route('comment.store') }}">
                     @csrf
                     <input type="hidden" name="post_id" value="{{ $post->id }}" />
                     <div class="form-group">
-                        <textarea name="comment" id="comment" class="form-control" rows="3"></textarea>
+                        <textarea name="content" id="content" class="form-control" rows="3"></textarea>
                     </div>
                     <button type="submit" class="btn btn-primary">Отправить</button>
                 </form>
@@ -43,8 +43,9 @@
             <div class="media mb-4">
                 <img class="d-flex mr-3 rounded-circle" src="{{ asset('storage/' . $comment->user->avatar) }}" height="50" width="50">
                 <div class="media-body">
-                    <h5 class="mt-0">{{ $comment->user->name }}</h5>
-                    {{ $comment->comment }}
+                    <h5 class="mt-0">{{ $comment->user->name }} </h5>
+                    {{ $comment->content }}<br>
+                    Дата: {{ $comment->created_at }}
                 </div>
             </div>
         @endforeach
