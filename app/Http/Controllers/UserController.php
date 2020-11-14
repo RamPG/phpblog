@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -55,5 +56,12 @@ class UserController extends Controller
     {
         Auth::logout();
         return redirect()->home();
+    }
+
+    public function index($id)
+    {
+        $user = User::find($id);
+        $comments = Comment::where('user_id', '=', $id)->paginate(5);
+        return view('user.index', compact('user', 'comments'));
     }
 }

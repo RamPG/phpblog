@@ -21,9 +21,8 @@
 @include('layouts.navbar')
 <div class="container">
 
-    <div class="row">
         @yield('posts')
-    </div>
+</div>
 <script src="{{ asset('js/index.js') }}"></script>
 
 </body>

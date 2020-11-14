@@ -19,15 +19,21 @@
                     <li class="nav-item">
                         <a class="nav-link" href={{ route('registerForm') }}>
                             Регистрация
-                          </a>
+                        </a>
                     </li>
                 @endguest
                 @auth
+                    <li class="nav-item">
+                        <a class="nav-link" href={{ route('user', ['id' => Auth::user()->id]) }}>
+                            Профиль
+                        </a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href={{ route('logout') }}>
                             Выход
                         </a>
                     </li>
+
                 @endauth
             </ul>
         </div>
