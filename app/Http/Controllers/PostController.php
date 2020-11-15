@@ -19,6 +19,6 @@ class PostController extends Controller
     {
         $post = Post::where('slug', $slug)->firstOrFail();
         $comments = Comment::where('post_id', '=', $post->id)->paginate(5);
-        return view('post', compact('post', 'comments'));
+        return view('post.index', compact('post', 'comments'));
     }
 }

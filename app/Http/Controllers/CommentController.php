@@ -20,4 +20,29 @@ class CommentController extends Controller
         ]);
         return redirect()->back();
     }
+
+    public function destroy($id)
+    {
+        Comment::destroy($id);
+        return redirect()->back();
+    }
+
+    public function edit($id)
+    {
+        $comment = Comment::find($id);
+        return view('post.commentEdit', compact('comment'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'content' => 'required|max:255',
+        ]);
+        $comment = Comment::find($id);
+        $comment->update([
+            'content' => $request->input('content'),
+        ]);
+        return redirect()->route('post.show', ['slug' => $comment->post->slug]);
+    }
+
 }

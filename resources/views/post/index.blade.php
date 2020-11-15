@@ -55,18 +55,20 @@
                         <p>
                             Дата: {{ $comment->created_at }}
                         </p>
-                        @if($comment->user_id === Auth::user()->id)
-                            <form method="post">
-                                @csrf
-                                @method('DELETE')
-                                <button class="btn btn-danger">
-                                    Удалить
-                                </button>
-                            </form>
-                            <button class="btn btn-info">
-                                Редактировать
-                            </button>
-                        @endif
+                        @auth
+                            @if($comment->user_id === Auth::user()->id)
+                                <form method="post" action="{{ route('comment.destroy', ['comment' => $comment->id]) }}">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn btn-danger">
+                                        Удалить
+                                    </button>
+                                </form>
+                                <a class="btn btn-info" href="{{ route('comment.edit', ['comment' => $comment->id]) }}">
+                                    Редактировать
+                                </a>
+                            @endif
+                        @endauth
                     </div>
 
                 </div>

@@ -34,7 +34,7 @@ Route::group(['prefix' => '/admin', 'middleware' => 'admin'], function () {
         'destroy' => 'admin.comment.destroy',
         'edit' => 'admin.comment.edit',
         'update' => 'admin.comment.update',
-    ]);
+    ])->except(['index', 'show', 'create']);
 });
 
 Route::group(['middleware' => 'guest'], function () {
@@ -47,7 +47,13 @@ Route::group(['middleware' => 'guest'], function () {
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/logout', [Controllers\UserController::class, 'logout'])->name('logout');
     Route::get('/user/{id}', [Controllers\UserController::class, 'index'])->name('user');
-    Route::post('/comment/store', [Controllers\CommentController::class, 'store'])->name('comment.store');
-
+    Route::resource('/comment', Controllers\CommentController::class)->names([
+        'destroy' => 'comment.destroy',
+        'edit' => 'comment.edit',
+        'update' => 'comment.update'
+    ])->middleware('userComment')->except([
+        'index', 'show', 'create', 'store',
+    ]);
+    Route::post('/comment', [Controllers\CommentController::class, 'store'])->name('comment.store');
 });
 
