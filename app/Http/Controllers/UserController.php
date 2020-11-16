@@ -64,4 +64,18 @@ class UserController extends Controller
         $comments = Comment::where('user_id', '=', $id)->paginate(5);
         return view('user.index', compact('user', 'comments'));
     }
+
+    public function update(Request $request)
+    {
+        $user = Auth::user();
+        $avatar = '';
+        if ($request->hasFile('avatar')) {
+            $folder = date('Y-m-d');
+            $avatar = $request->file('avatar')->store("images/{$folder}");
+        }
+        $user->update([
+            'avatar' => $avatar ? $avatar : $user->avatar,
+        ]);
+        return redirect()->back();
+    }
 }

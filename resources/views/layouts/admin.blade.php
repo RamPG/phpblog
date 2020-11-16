@@ -61,7 +61,13 @@
                             <li class="nav-item">
                                 <a href="{{ route('admin.posts.index') }}" class="nav-link">
                                     <i class="fas fa-blog nav-icon"></i>
-                                    <p>Посты</p>
+                                    <p>Статьи</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{ route('admin.users.index') }}" class="nav-link">
+                                    <i class="fas fa-blog nav-icon"></i>
+                                    <p>Пользователи</p>
                                 </a>
                             </li>
                         </ul>

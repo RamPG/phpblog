@@ -17,7 +17,7 @@
                 </ul>
             </div>
         @endif
-        <form role="form" method="post" action="{{ route('admin.posts.store') }}" enctype="multipart/form-data">
+        <form role="form" method="post" action="{{ route('admin.post.store') }}" enctype="multipart/form-data">
             @csrf
             <div class="card-body">
                 <div class="form-group">

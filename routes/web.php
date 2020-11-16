@@ -23,11 +23,11 @@ Route::group(['prefix' => '/admin', 'middleware' => 'admin'], function () {
     Route::get('/posts/comments/{post}', [Controllers\Admin\CommentController::class, 'showComments'])->name('admin.post.comments');
     Route::resource('/posts', Controllers\Admin\PostController::class)->names([
         'index' => 'admin.posts.index',
-        'edit' => 'admin.posts.edit',
-        'update' => 'admin.posts.update',
-        'create' => 'admin.posts.create',
-        'store' => 'admin.posts.store',
-        'destroy' => 'admin.posts.destroy',
+        'edit' => 'admin.post.edit',
+        'update' => 'admin.post.update',
+        'create' => 'admin.post.create',
+        'store' => 'admin.post.store',
+        'destroy' => 'admin.post.destroy',
     ])->except(['show']);
     Route::resource('/comment', Controllers\Admin\CommentController::class)->names([
         'store' => 'admin.comment.store',
@@ -35,6 +35,12 @@ Route::group(['prefix' => '/admin', 'middleware' => 'admin'], function () {
         'edit' => 'admin.comment.edit',
         'update' => 'admin.comment.update',
     ])->except(['index', 'show', 'create']);
+    Route::resource('/users', Controllers\Admin\UserController::class)->names([
+        'index' => 'admin.users.index',
+        'edit' => 'admin.user.edit',
+        'update' => 'admin.user.update',
+        'destroy' => 'admin.user.destroy',
+    ])->except(['show', 'store', 'create']);
 });
 
 Route::group(['middleware' => 'guest'], function () {
@@ -47,6 +53,7 @@ Route::group(['middleware' => 'guest'], function () {
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/logout', [Controllers\UserController::class, 'logout'])->name('logout');
     Route::get('/user/{id}', [Controllers\UserController::class, 'index'])->name('user');
+    Route::put('/user', [Controllers\UserController::class, 'update'])->name('user.update');
     Route::resource('/comment', Controllers\CommentController::class)->names([
         'destroy' => 'comment.destroy',
         'edit' => 'comment.edit',

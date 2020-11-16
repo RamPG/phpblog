@@ -85,6 +85,7 @@ class PostController extends Controller
     public function update(Request $request, $id)
     {
         $post = Post::find($id);
+        $thumbnail = '';
         $request->validate([
             'title' => 'required|min:5|unique:posts,title,' . $id,
             'content' => 'required|min:50',
@@ -93,21 +94,14 @@ class PostController extends Controller
         if ($request->hasFile('thumbnail')) {
             $folder = date('Y-m-d');
             $thumbnail = $request->file('thumbnail')->store("images/{$folder}");
-            $post->update([
-                'title' => $request->input('title'),
-                'slug' => Str::slug($request->input('title')),
-                'description' => StringHelpers::trimSpaceBeforeSpace($request->input('content'), 100),
-                'content' => $request->input('content'),
-                'thumbnail' => $thumbnail,
-            ]);
-        } else {
-            $post->update([
-                'title' => $request->input('title'),
-                'slug' => Str::slug($request->input('title')),
-                'description' => StringHelpers::trimSpaceBeforeSpace($request->input('content'), 100),
-                'content' => $request->input('content'),
-            ]);
         }
+        $post->update([
+            'title' => $request->input('title'),
+            'slug' => Str::slug($request->input('title')),
+            'description' => StringHelpers::trimSpaceBeforeSpace($request->input('content'), 100),
+            'content' => $request->input('content'),
+            'thumbnail' => $thumbnail ? $thumbnail : $post->thumbnail,
+        ]);
         return redirect()->route('admin.posts.index');
     }
 

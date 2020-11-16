@@ -17,7 +17,7 @@
                 </ul>
             </div>
         @endif
-        <form role="form" method="post" action="{{ route('admin.posts.update', ['post' => $post->id]) }}" enctype="multipart/form-data">
+        <form role="form" method="post" action="{{ route('admin.post.update', ['post' => $post->id]) }}" enctype="multipart/form-data">
             @csrf
             @method('PUT')
             <div class="card-body">
