@@ -17,6 +17,7 @@ use App\Http\Controllers;
 
 Route::get('/', [Controllers\PostController::class, 'index'])->name('home');
 Route::get('/post/{slug}', [Controllers\PostController::class, 'show'])->name('post.show');
+Route::post('/post/search', [Controllers\PostController::class, 'search'])->name('post.search');
 
 Route::group(['prefix' => '/admin', 'middleware' => 'admin'], function () {
     Route::get('/', [Controllers\Admin\MainController::class, 'index'])->name('admin.index');
