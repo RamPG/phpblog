@@ -49,6 +49,7 @@ Route::group(['middleware' => 'guest'], function () {
     Route::post('/login', [Controllers\UserController::class, 'login'])->name('login');
     Route::get('/register', [Controllers\UserController::class, 'registerForm'])->name('registerForm');
     Route::post('/register', [Controllers\UserController::class, 'register'])->name('register');
+    Route::get('/verify/{emailVerifyCode}', [Controllers\UserController::class, 'emailVerify'])->name('emailVerify');
 });
 
 Route::group(['middleware' => 'auth'], function () {
@@ -64,4 +65,3 @@ Route::group(['middleware' => 'auth'], function () {
     ]);
     Route::post('/comment', [Controllers\CommentController::class, 'store'])->name('comment.store');
 });
-

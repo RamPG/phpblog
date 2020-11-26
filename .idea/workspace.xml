@@ -12,10 +12,9 @@
   <component name="ChangeListManager">
     <list default="true" id="6f7a9d87-ae84-4537-abb3-aa64d46f653e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PostController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PostController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resources/views/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/index.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/index.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/layouts/sidebar.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/layouts/sidebar.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -173,7 +172,7 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -222,7 +221,20 @@
       <workItem from="1605431315718" duration="600000" />
       <workItem from="1605448996451" duration="7975000" />
       <workItem from="1605537101691" duration="5940000" />
-      <workItem from="1605631464854" duration="4390000" />
+      <workItem from="1605631464854" duration="4716000" />
+      <workItem from="1605795718734" duration="15000" />
+      <workItem from="1605795802203" duration="77000" />
+      <workItem from="1605795901398" duration="20000" />
+      <workItem from="1605795934461" duration="200000" />
+      <workItem from="1605796596844" duration="42000" />
+      <workItem from="1605796671454" duration="105000" />
+      <workItem from="1605796788915" duration="3868000" />
+      <workItem from="1605957399122" duration="2810000" />
+      <workItem from="1606148668653" duration="685000" />
+      <workItem from="1606326721835" duration="2080000" />
+      <workItem from="1606386474950" duration="10309000" />
+      <workItem from="1606400190349" duration="257000" />
+      <workItem from="1606418693966" duration="1481000" />
     </task>
     <servers />
   </component>
@@ -242,10 +254,10 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="494" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1605458968135">
+    <state x="494" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1606388393270">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="494" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.824@0.0.1536.824" timestamp="1605458968135" />
+    <state x="494" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.824@0.0.1536.824" timestamp="1606388393270" />
     <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1604663207320">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -258,14 +270,22 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="474" y="135" key="NewPhpClassDialog/0.0.1536.824@0.0.1536.824" timestamp="1604940492180" />
-    <state x="604" y="335" key="NewPhpFileDialog" timestamp="1605634284677">
+    <state x="604" y="335" key="NewPhpFileDialog" timestamp="1606389996548">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="604" y="335" key="NewPhpFileDialog/0.0.1536.824@0.0.1536.824" timestamp="1605634284677" />
+    <state x="604" y="335" key="NewPhpFileDialog/0.0.1536.824@0.0.1536.824" timestamp="1606389996548" />
+    <state x="277" y="57" key="SettingsEditor" timestamp="1605796775725">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="277" y="57" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1605796775725" />
     <state x="425" y="187" key="run.anything.popup" timestamp="1605026934777">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="425" y="187" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1605026934777" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1605959024800">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1605959024800" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

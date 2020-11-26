@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\ProcessSendEmailVerification;
 use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -25,9 +27,10 @@ class UserController extends Controller
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'password' => bcrypt($request->input('password')),
+            'email_verify_code' => Str::random(20),
         ]);
-        session()->flash('success', 'Регистрация пройдена');
-        Auth::login($user);
+        session()->flash('success', 'Регистрация пройдена, подтвердите почту');
+        ProcessSendEmailVerification::dispatch($user);
         return redirect()->home();
     }
 
@@ -46,8 +49,15 @@ class UserController extends Controller
             'email' => $request->input('email'),
             'password' => $request->input('password'),
         ])) {
-            session()->flash('success', 'You are logged');
-            return redirect()->home();
+            if (Auth::user()->email_verified_at) {
+                session()->flash('success', 'You are logged');
+                return redirect()->home();
+            } else {
+                session()->flash('error', 'Подтвердите email');
+                Auth::logout();
+                return redirect()->home();
+            }
+
         }
         return redirect()->back()->with('error', 'Incorrect login or password');
     }
@@ -77,5 +87,18 @@ class UserController extends Controller
             'avatar' => $avatar ? $avatar : $user->avatar,
         ]);
         return redirect()->back();
+    }
+
+    public function emailVerify($emailVerifyCode)
+    {
+        $user = User::where('email_verify_code', $emailVerifyCode)->firstOrFail();
+        if (!$user->email_verified_at) {
+            $user->update([
+                'email_verified_at' => now()
+            ]);
+            Auth::login($user);
+            session()->flash('error', 'Подтверждено');
+        }
+        return redirect()->home();
     }
 }

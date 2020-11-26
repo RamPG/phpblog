@@ -10,10 +10,16 @@ use Illuminate\Notifications\Notifiable;
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
+
+    /**
+     * @var mixed
+     */
+
     public function comments()
     {
         return $this->hasMany(Comment::class);
     }
+
     /**
      * The attributes that are mass assignable.
      *
@@ -25,6 +31,8 @@ class User extends Authenticatable
         'email',
         'password',
         'avatar',
+        'email_verify_code',
+        'email_verified_at',
     ];
 
     /**

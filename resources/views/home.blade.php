@@ -3,6 +3,15 @@
     Главная страница
 @endsection
 @section('posts')
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul class="list-unstyled">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
         <div class="col-md-8">
             @foreach($posts as $post)
                 <div class="card mb-4">
