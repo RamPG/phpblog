@@ -48,7 +48,7 @@ class UserController extends Controller
         if (Auth::attempt([
             'email' => $request->input('email'),
             'password' => $request->input('password'),
-        ])) {
+        ], $request->input('remember-me'))) {
             if (Auth::user()->email_verified_at) {
                 session()->flash('success', 'You are logged');
                 return redirect()->home();
@@ -68,25 +68,11 @@ class UserController extends Controller
         return redirect()->home();
     }
 
-    public function index($id)
+    public function show($id)
     {
         $user = User::find($id);
         $comments = Comment::where('user_id', '=', $id)->paginate(5);
-        return view('user.index', compact('user', 'comments'));
-    }
-
-    public function update(Request $request)
-    {
-        $user = Auth::user();
-        $avatar = '';
-        if ($request->hasFile('avatar')) {
-            $folder = date('Y-m-d');
-            $avatar = $request->file('avatar')->store("images/{$folder}");
-        }
-        $user->update([
-            'avatar' => $avatar ? $avatar : $user->avatar,
-        ]);
-        return redirect()->back();
+        return view('user.show', compact('user', 'comments'));
     }
 
     public function emailVerify($emailVerifyCode)
@@ -97,8 +83,32 @@ class UserController extends Controller
                 'email_verified_at' => now()
             ]);
             Auth::login($user);
-            session()->flash('error', 'Подтверждено');
+            session()->flash('success', 'Подтверждено');
         }
         return redirect()->home();
+    }
+
+    public function edit()
+    {
+        $user = Auth::user();
+        return view('user.edit', ['user' => $user]);
+    }
+    public function update(Request $request)
+    {
+        $user = Auth::user();
+        $request->validate([
+            'avatar' => 'image',
+            'name' => 'required|min:5|unique:users,name,' . $user->id,
+        ]);
+        $avatar = '';
+        if ($request->hasFile('avatar')) {
+            $folder = date('Y-m-d');
+            $avatar = $request->file('avatar')->store("images/{$folder}");
+        }
+        $user->update([
+            'avatar' => $avatar ? $avatar : $user->avatar,
+            'name' => $request->input('name'),
+        ]);
+        return redirect()->route('user.show', ['user' => $user->id]);
     }
 }

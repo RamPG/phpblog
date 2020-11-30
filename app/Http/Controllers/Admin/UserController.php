@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Comment;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -48,7 +49,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+        $comments = Comment::where('user_id', '=', $id)->paginate(5);
+        return view('admin.users.show', ['user' => $user, 'comments' => $comments]);
     }
 
     /**
@@ -59,7 +62,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user = User::find($id);
+        return view('admin.users.edit', ['user' => $user]);
     }
 
     /**
@@ -71,7 +75,21 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::find($id);
+        $request->validate([
+            'avatar' => 'image',
+            'name' => 'required|min:5|unique:users,name,' . $id,
+        ]);
+        $avatar = '';
+        if ($request->hasFile('avatar')) {
+            $folder = date('Y-m-d');
+            $avatar = $request->file('avatar')->store("images/{$folder}");
+        }
+        $user->update([
+            'avatar' => $avatar ? $avatar : $user->avatar,
+            'name' => $request->input('name'),
+        ]);
+        return redirect()->route('admin.users.index');
     }
 
     /**
@@ -82,6 +100,7 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        User::destroy($id);
+        return redirect()->back();
     }
 }

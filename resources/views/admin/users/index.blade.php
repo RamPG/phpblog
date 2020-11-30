@@ -28,9 +28,15 @@
                         <td class="column">
                             <a
                                 class="btn btn-info btn-block"
+                                href="{{ route('admin.user.show', ['user' => $user->id]) }}"
+                            >
+                                Открыть профиль
+                            </a>
+                            <a
+                                class="btn btn-info btn-block"
                                 href="{{ route('admin.user.edit', ['user' => $user->id]) }}"
                             >
-                                Редактировать
+                                Редактировать профиль
                             </a>
                             <form action="{{ route('admin.user.destroy', ['user' => $user->id]) }}" method="post">
                                 @csrf

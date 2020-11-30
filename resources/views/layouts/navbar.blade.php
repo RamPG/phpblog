@@ -24,7 +24,7 @@
                 @endguest
                 @auth
                     <li class="nav-item">
-                        <a class="nav-link" href={{ route('user', ['id' => Auth::user()->id]) }}>
+                        <a class="nav-link" href={{ route('user.show', ['user' => Auth::user()->id]) }}>
                             Профиль
                         </a>
                     </li>

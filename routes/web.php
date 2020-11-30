@@ -29,7 +29,8 @@ Route::group(['prefix' => '/admin', 'middleware' => 'admin'], function () {
         'create' => 'admin.post.create',
         'store' => 'admin.post.store',
         'destroy' => 'admin.post.destroy',
-    ])->except(['show']);
+        'show' => 'admin.post.show',
+    ]);
     Route::resource('/comment', Controllers\Admin\CommentController::class)->names([
         'store' => 'admin.comment.store',
         'destroy' => 'admin.comment.destroy',
@@ -41,7 +42,8 @@ Route::group(['prefix' => '/admin', 'middleware' => 'admin'], function () {
         'edit' => 'admin.user.edit',
         'update' => 'admin.user.update',
         'destroy' => 'admin.user.destroy',
-    ])->except(['show', 'store', 'create']);
+        'show' => 'admin.user.show',
+    ])->except(['store', 'create']);
 });
 
 Route::group(['middleware' => 'guest'], function () {
@@ -54,14 +56,17 @@ Route::group(['middleware' => 'guest'], function () {
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/logout', [Controllers\UserController::class, 'logout'])->name('logout');
-    Route::get('/user/{id}', [Controllers\UserController::class, 'index'])->name('user');
+    Route::get('/user/{user}', [Controllers\UserController::class, 'show'])->name('user.show')->where(
+        'user', '[0-9]+',
+    );
     Route::put('/user', [Controllers\UserController::class, 'update'])->name('user.update');
+    Route::get('/user/edit', [Controllers\UserController::class, 'edit'])->name('user.edit');
     Route::resource('/comment', Controllers\CommentController::class)->names([
         'destroy' => 'comment.destroy',
         'edit' => 'comment.edit',
-        'update' => 'comment.update'
+        'update' => 'comment.update',
+        'store' => 'comment.store',
     ])->middleware('userComment')->except([
-        'index', 'show', 'create', 'store',
+        'index', 'show', 'create',
     ]);
-    Route::post('/comment', [Controllers\CommentController::class, 'store'])->name('comment.store');
 });

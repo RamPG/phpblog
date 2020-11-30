@@ -116,4 +116,10 @@ class PostController extends Controller
         Post::destroy($id);
         return redirect()->route('admin.posts.index');
     }
+
+    public function show($id)
+    {
+        $post = Post::find($id);
+        return view('admin.posts.show', ['post' => $post]);
+    }
 }

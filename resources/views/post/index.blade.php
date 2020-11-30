@@ -46,7 +46,7 @@
                      height="50" width="50">
                 <div class="media-body">
                     <h5 class="mt-0">
-                        <a href="{{ route('user', ['id' => $comment->user_id]) }}">
+                        <a href="{{ route('user.show', ['user' => $comment->user_id]) }}">
                             {{ $comment->user->name }}
                         </a>
                     </h5>

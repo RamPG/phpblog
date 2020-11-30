@@ -29,6 +29,12 @@
                         <td class="column">
                             <a
                                 class="btn btn-info btn-block"
+                                href="{{ route('admin.post.show', ['post' => $post->id]) }}"
+                            >
+                                Просмотреть
+                            </a>
+                            <a
+                                class="btn btn-info btn-block"
                                 href="{{ route('admin.post.edit', ['post' => $post->id]) }}"
                             >
                                 Редактировать

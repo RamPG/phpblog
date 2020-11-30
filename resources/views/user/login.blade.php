@@ -53,6 +53,11 @@
                         <button type="submit" class="btn btn-primary btn-block">Войти</button>
                     <!-- /.col -->
                 </div>
+                <div class="form-group">
+                    <label for="remember-me" class="text-info">Запомнить меня
+                        <input id="remember-me" name="remember-me" type="checkbox">
+                    </label>
+                </div>
             </form>
 
             <a href="{{ route('registerForm') }}" class="text-center">Я не зарегистрирован</a>
