@@ -33,6 +33,7 @@ class User extends Authenticatable
         'avatar',
         'email_verify_code',
         'email_verified_at',
+        'verified',
     ];
 
     /**

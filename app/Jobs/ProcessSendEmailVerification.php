@@ -34,6 +34,6 @@ class ProcessSendEmailVerification implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to($this->user->email)->send(new EmailVerification($this->user));
+        Mail::to($this->user->email)->send(new EmailVerification($this->user->email_verify_code));
     }
 }

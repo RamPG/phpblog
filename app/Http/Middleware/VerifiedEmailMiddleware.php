@@ -2,12 +2,11 @@
 
 namespace App\Http\Middleware;
 
-use App\Models\Comment;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class UserCommentMiddleware
+class VerifiedEmailMiddleware
 {
     /**
      * Handle an incoming request.
@@ -18,10 +17,9 @@ class UserCommentMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        $comment = Comment::find($request->route('comment'));
-        if (Auth::user()->id === $comment->user_id) {
+        if (Auth::user()->verified) {
             return $next($request);
         }
-        return redirect()->back();
+        return redirect()->route('verifyEmail');
     }
 }

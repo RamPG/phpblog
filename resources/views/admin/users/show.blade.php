@@ -10,7 +10,7 @@
         <h2 class="d-block">Имя: {{ $user->name }}</h2>
         <h6 class="d-block">
             Почтовый ящик: {{ $user->email }}
-            @if($user->email_verified_at)
+            @if($user->verified)
                 Подтвержден
             @else
                 Не подтвержден

@@ -51,22 +51,29 @@ Route::group(['middleware' => 'guest'], function () {
     Route::post('/login', [Controllers\UserController::class, 'login'])->name('login');
     Route::get('/register', [Controllers\UserController::class, 'registerForm'])->name('registerForm');
     Route::post('/register', [Controllers\UserController::class, 'register'])->name('register');
-    Route::get('/verify/{emailVerifyCode}', [Controllers\UserController::class, 'emailVerify'])->name('emailVerify');
 });
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/logout', [Controllers\UserController::class, 'logout'])->name('logout');
-    Route::get('/user/{user}', [Controllers\UserController::class, 'show'])->name('user.show')->where(
-        'user', '[0-9]+',
-    );
-    Route::put('/user', [Controllers\UserController::class, 'update'])->name('user.update');
-    Route::get('/user/edit', [Controllers\UserController::class, 'edit'])->name('user.edit');
-    Route::resource('/comment', Controllers\CommentController::class)->names([
-        'destroy' => 'comment.destroy',
-        'edit' => 'comment.edit',
-        'update' => 'comment.update',
-        'store' => 'comment.store',
-    ])->middleware('userComment')->except([
-        'index', 'show', 'create',
-    ]);
+    Route::get('/change-email', [Controllers\UserController::class, 'changeEmailForm'])->name('changeEmailForm');
+    Route::post('/change-email', [Controllers\UserController::class, 'changeEmail'])->name('changeEmail');
+    Route::group(['middleware' => 'unverifiedEmail'], function () {
+        Route::get('/verify', [Controllers\UserController::class, 'verifyEmailForm'])->name('verifyEmailForm');
+        Route::post('/verify', [Controllers\UserController::class, 'verifyEmail'])->name('verifyEmail');
+    });
+    Route::group(['middleware' => 'verifiedEmail'], function () {
+        Route::get('/user/{user}', [Controllers\UserController::class, 'show'])->name('user.show')->where(
+            'user', '[0-9]+',
+        );
+        Route::put('/user', [Controllers\UserController::class, 'update'])->name('user.update');
+        Route::get('/user/edit', [Controllers\UserController::class, 'edit'])->name('user.edit');
+        Route::resource('/comment', Controllers\CommentController::class)->names([
+            'destroy' => 'comment.destroy',
+            'edit' => 'comment.edit',
+            'update' => 'comment.update',
+        ])->middleware('userComment')->except([
+            'index', 'show', 'create', 'store'
+        ]);
+        Route::post('/comment', [Controllers\CommentController::class, 'store'])->name('comment.store');
+    });
 });

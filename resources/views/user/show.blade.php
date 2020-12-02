@@ -16,6 +16,12 @@
             >
                 Редактировать
             </a>
+            <a
+                class="btn btn-info"
+                href="{{ route('changeEmailForm') }}"
+            >
+                Изменить почту
+            </a>
         @endif
         <h3>Комментарии</h3>
     </div>

@@ -27,11 +27,11 @@ class UserController extends Controller
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'password' => bcrypt($request->input('password')),
-            'email_verify_code' => Str::random(20),
+            'email_verify_code' => Str::random(10),
         ]);
-        session()->flash('success', 'Регистрация пройдена, подтвердите почту');
+        Auth::login($user);
         ProcessSendEmailVerification::dispatch($user);
-        return redirect()->home();
+        return redirect()->route('verifyEmailForm');
     }
 
     public function loginForm()
@@ -49,13 +49,11 @@ class UserController extends Controller
             'email' => $request->input('email'),
             'password' => $request->input('password'),
         ], $request->input('remember-me'))) {
-            if (Auth::user()->email_verified_at) {
+            if (Auth::user()->verified) {
                 session()->flash('success', 'You are logged');
                 return redirect()->home();
             } else {
-                session()->flash('error', 'Подтвердите email');
-                Auth::logout();
-                return redirect()->home();
+                return redirect()->route('verifyEmailForm');
             }
 
         }
@@ -75,16 +73,18 @@ class UserController extends Controller
         return view('user.show', compact('user', 'comments'));
     }
 
-    public function emailVerify($emailVerifyCode)
+    public function verifyEmailForm()
     {
-        $user = User::where('email_verify_code', $emailVerifyCode)->firstOrFail();
-        if (!$user->email_verified_at) {
-            $user->update([
-                'email_verified_at' => now()
-            ]);
-            Auth::login($user);
-            session()->flash('success', 'Подтверждено');
-        }
+        return view('user.emailVerifyForm', ['email' => Auth::user()->email]);
+    }
+
+    public function verifyEmail(Request $request)
+    {
+        Auth::user()->update([
+            'email_verified_at' => now(),
+            'verified' => true,
+        ]);
+        session()->flash('success', 'Подтверждено');
         return redirect()->home();
     }
 
@@ -93,6 +93,7 @@ class UserController extends Controller
         $user = Auth::user();
         return view('user.edit', ['user' => $user]);
     }
+
     public function update(Request $request)
     {
         $user = Auth::user();
@@ -110,5 +111,26 @@ class UserController extends Controller
             'name' => $request->input('name'),
         ]);
         return redirect()->route('user.show', ['user' => $user->id]);
+    }
+
+    public function changeEmailForm()
+    {
+        return view('user.changeEmailForm');
+    }
+
+    public function changeEmail(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email|unique:users,email',
+        ]);
+        $user = User::find(Auth::user()->id);
+        $user->update([
+            'email' => $request->input('email'),
+            'email_verified_at' => NULL,
+            'verified' => false,
+            'email_verify_code' => Str::random(10),
+        ]);
+        ProcessSendEmailVerification::dispatch($user);
+        return redirect()->route('verifyEmailForm');
     }
 }

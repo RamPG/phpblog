@@ -2,7 +2,9 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\UnverifiedEmailMiddleware;
 use App\Http\Middleware\UserCommentMiddleware;
+use App\Http\Middleware\VerifiedEmailMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -65,5 +67,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'admin' => \App\Http\Middleware\AdminMiddleware::class,
         'userComment' => UserCommentMiddleware::class,
+        'verifiedEmail' => VerifiedEmailMiddleware::class,
+        'unverifiedEmail' => UnverifiedEmailMiddleware::class,
     ];
 }
