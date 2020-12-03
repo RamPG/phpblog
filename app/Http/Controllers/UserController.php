@@ -80,12 +80,19 @@ class UserController extends Controller
 
     public function verifyEmail(Request $request)
     {
-        Auth::user()->update([
-            'email_verified_at' => now(),
-            'verified' => true,
-        ]);
-        session()->flash('success', 'Подтверждено');
-        return redirect()->home();
+        $user = Auth::user();
+        if ($request->input('verify-code') === $user->email_verify_code)
+        {
+            $user->update([
+                'email_verified_at' => now(),
+                'verified' => true,
+                'email_verify_code' => NULL,
+            ]);
+            session()->flash('success', 'Подтверждено');
+            return redirect()->home();
+        }
+        return redirect()->back()->with('error', 'Неверный код активации');
+
     }
 
     public function edit()
