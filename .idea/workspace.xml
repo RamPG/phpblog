@@ -6,13 +6,51 @@
         <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
         <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
       </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
     </expand>
-    <select />
+    <select>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </select>
   </component>
   <component name="ChangeListManager">
     <list default="true" id="6f7a9d87-ae84-4537-abb3-aa64d46f653e" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/app/Models/TempEmail.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/Models/TempPassword.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/database/migrations/2020_12_04_080036_create_temp_passwords_table.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resources/views/user/emailVerifyPage.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Console/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Kernel.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/UnverifiedEmailMiddleware.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/UnverifiedEmailMiddleware.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Middleware/VerifiedEmailMiddleware.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Middleware/VerifiedEmailMiddleware.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Jobs/ProcessSendEmailVerification.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Jobs/ProcessSendEmailVerification.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Mail/EmailVerification.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Mail/EmailVerification.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2014_10_12_000000_create_users_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2014_10_12_100000_create_password_resets_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_12_04_080048_create_temp_emails_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_11_06_164320_add_column_is_admin_to_post_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_11_11_144804_add_avatar_column_to_user_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_11_11_153149_create_comments_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_11_11_153149_create_comments_table.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_11_12_170050_rename_column_comments_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_11_14_133136_change_type_user_id_column_in_comments_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_11_26_103833_add_column_verify_email_users_table.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_02_091042_add_column_verified.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_03_151913_add_column_password_verify_code.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/home.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/home.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/user/changeEmailForm.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/changeEmailForm.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/user/emailVerifyForm.blade.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/user/emailVerifyMessage.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/emailVerifyMessage.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -34,7 +72,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="PhpWorkspaceProjectConfiguration">
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/symfony/polyfill-php80" />
       <path value="$PROJECT_DIR$/vendor/voku/portable-ascii" />
@@ -167,10 +205,10 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../../php-7.4.11/php.exe" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="reference.webide.settings.project.settings.php" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -240,7 +278,20 @@
       <workItem from="1606843073341" duration="4173000" />
       <workItem from="1606898739136" duration="8977000" />
       <workItem from="1606922385634" duration="6062000" />
-      <workItem from="1607006725478" duration="6231000" />
+      <workItem from="1607006725478" duration="6497000" />
+      <workItem from="1607063800773" duration="13690000" />
+      <workItem from="1607092361734" duration="9001000" />
+      <workItem from="1607152325882" duration="15747000" />
+      <workItem from="1607248175808" duration="2105000" />
+      <workItem from="1607449685823" duration="1346000" />
+      <workItem from="1607510881209" duration="2081000" />
+      <workItem from="1607537575471" duration="1203000" />
+      <workItem from="1607586245940" duration="8986000" />
+      <workItem from="1607627553778" duration="5380000" />
+      <workItem from="1608385422415" duration="1684000" />
+      <workItem from="1608387152920" duration="2345000" />
+      <workItem from="1608389982157" duration="73000" />
+      <workItem from="1608459737309" duration="9127000" />
     </task>
     <servers />
   </component>
@@ -260,6 +311,14 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="348" y="67" key="#CLI_Interpreters" timestamp="1608389410143">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="348" y="67" key="#CLI_Interpreters/0.0.1536.824@0.0.1536.824" timestamp="1608389410143" />
+    <state x="523" y="214" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1608387481042">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="523" y="214" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.824@0.0.1536.824" timestamp="1608387481042" />
     <state x="494" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1606909078295">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -268,10 +327,14 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1604663207320" />
-    <state x="499" y="167" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1606908950648">
+    <state x="499" y="167" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1607589179108">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="499" y="167" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1536.824@0.0.1536.824" timestamp="1606908950648" />
+    <state x="499" y="167" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1536.824@0.0.1536.824" timestamp="1607589179108" />
+    <state x="548" y="166" key="FileChooserDialogImpl" timestamp="1608389406434">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="548" y="166" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1608389406434" />
     <state x="474" y="135" key="NewPhpClassDialog" timestamp="1604940492180">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -280,10 +343,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="604" y="335" key="NewPhpFileDialog/0.0.1536.824@0.0.1536.824" timestamp="1607012321680" />
-    <state x="277" y="57" key="SettingsEditor" timestamp="1605796775725">
+    <state x="277" y="57" key="SettingsEditor" timestamp="1608389413450">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="277" y="57" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1605796775725" />
+    <state x="277" y="57" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1608389413450" />
     <state x="425" y="187" key="run.anything.popup" timestamp="1605026934777">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

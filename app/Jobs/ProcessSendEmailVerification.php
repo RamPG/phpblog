@@ -3,7 +3,7 @@
 namespace App\Jobs;
 
 use App\Mail\EmailVerification;
-use App\Models\User;
+use App\Models\TempEmail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -15,16 +15,16 @@ class ProcessSendEmailVerification implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    public $user;
+    public $tempEmail;
 
     /**
      * Create a new job instance.
      *
-     * @param User $user
+     * @param $tempEmail
      */
-    public function __construct(User $user)
+    public function __construct(TempEmail $tempEmail)
     {
-        $this->user = $user;
+        $this->tempEmail = $tempEmail;
     }
 
     /**
@@ -34,6 +34,6 @@ class ProcessSendEmailVerification implements ShouldQueue
      */
     public function handle()
     {
-        Mail::to($this->user->email)->send(new EmailVerification($this->user->email_verify_code));
+        Mail::to($this->tempEmail->new_email)->send(new EmailVerification($this->tempEmail->token));
     }
 }

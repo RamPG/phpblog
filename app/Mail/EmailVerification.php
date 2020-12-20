@@ -12,16 +12,16 @@ class EmailVerification extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $emailVerifyCode;
+    public $token;
 
     /**
      * Create a new message instance.
      *
-     * @param $emailVerifyCode
+     * @param $token
      */
-    public function __construct($emailVerifyCode)
+    public function __construct($token)
     {
-        $this->emailVerifyCode = $emailVerifyCode;
+        $this->token = $token;
     }
 
     /**
@@ -31,6 +31,6 @@ class EmailVerification extends Mailable
      */
     public function build()
     {
-        return $this->view('user.emailVerifyMessage', ['emailVerifyCode' => $this->emailVerifyCode]);
+        return $this->view('user.emailVerifyMessage', ['emailVerifyCode' => $this->token]);
     }
 }

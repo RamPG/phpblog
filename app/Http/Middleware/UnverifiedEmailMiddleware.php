@@ -17,7 +17,7 @@ class UnverifiedEmailMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!Auth::user()->verified) {
+        if (!Auth::user()->is_verified) {
             return $next($request);
         }
         return redirect()->back();

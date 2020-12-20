@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Jobs\ProcessSendEmailVerification;
 use App\Models\Comment;
+use App\Models\TempEmail;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -20,18 +22,23 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => 'required|min:5',
-            'email' => 'required|email|unique:users,email',
+            'email' => 'required|email|unique:users,email|unique:temp_emails,new_email',
             'password' => 'required|confirmed|min:8',
         ]);
         $user = User::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'password' => bcrypt($request->input('password')),
-            'email_verify_code' => Str::random(10),
         ]);
         Auth::login($user);
-        ProcessSendEmailVerification::dispatch($user);
-        return redirect()->route('verifyEmailForm');
+        $tempEmail = TempEmail::create([
+            'user_id' => $user->id,
+            'new_email' => $request->input('email'),
+            'token' => Str::uuid(),
+            'expires_at' => Carbon::now()->addMinutes(2),
+        ]);
+        ProcessSendEmailVerification::dispatch($tempEmail);
+        return redirect()->route('verifyEmailPage');
     }
 
     public function loginForm()
@@ -49,11 +56,11 @@ class UserController extends Controller
             'email' => $request->input('email'),
             'password' => $request->input('password'),
         ], $request->input('remember-me'))) {
-            if (Auth::user()->verified) {
+            if (Auth::user()->is_verified) {
                 session()->flash('success', 'You are logged');
                 return redirect()->home();
             } else {
-                return redirect()->route('verifyEmailForm');
+                return redirect()->route('verifyEmailPage');
             }
 
         }
@@ -73,25 +80,29 @@ class UserController extends Controller
         return view('user.show', compact('user', 'comments'));
     }
 
-    public function verifyEmailForm()
+    public function verifyEmailPage()
     {
-        return view('user.emailVerifyForm', ['email' => Auth::user()->email]);
+        return view('user.emailVerifyPage');
     }
 
     public function verifyEmail(Request $request)
     {
-        $user = Auth::user();
-        if ($request->input('verify-code') === $user->email_verify_code)
-        {
-            $user->update([
-                'email_verified_at' => now(),
-                'verified' => true,
-                'email_verify_code' => NULL,
-            ]);
-            session()->flash('success', 'Подтверждено');
-            return redirect()->home();
+        $tempEmail = TempEmail::where('token', $request->route('token'))->first();
+        if ($tempEmail) {
+            if (($tempEmail->expires_at >= Carbon::now())) {
+                $tempEmail->user->update([
+                    'email' => $tempEmail->new_email,
+                    'email_verified_at' => Carbon::now(),
+                    'is_verified' => true,
+                ]);
+                $tempEmail->delete();
+                session()->flash('success', 'Подтверждено');
+                return redirect()->home();
+            }
+            $tempEmail->delete();
+            return redirect()->route('changeEmailForm')->with('error', 'Срок активации прошел');
         }
-        return redirect()->back()->with('error', 'Неверный код активации');
+        return redirect()->route('verifyEmailPage')->with('error', 'Неверный код активации/Срок активации прошел');
 
     }
 
@@ -127,17 +138,41 @@ class UserController extends Controller
 
     public function changeEmail(Request $request)
     {
-        $request->validate([
-            'email' => 'required|email|unique:users,email',
+        if (Auth::user()->is_verified)
+        {
+            $request->validate([
+                'email' => 'required|email|unique:users,email|unique:temp_emails,new_email,' . Auth::user()->id,
+            ]);
+        }
+        else {
+            $request->validate([
+                'email' => 'required|email|unique:users,email,' . Auth::user()->id . '|unique:temp_emails,new_email,' . Auth::user()->id,
+            ]);
+        }
+        $user = Auth::user();
+        $tempEmail = TempEmail::where('user_id', $user->id)->first();
+        if ($tempEmail) {
+            if ($tempEmail->expires_at <= Carbon::now()) {
+                $tempEmail->update([
+                    'user_id' => $user->id,
+                    'new_email' => $request->input('email'),
+                    'token' => Str::uuid(),
+                    'expires_at' => Carbon::now()->addMinutes(2),
+                ]);
+                ProcessSendEmailVerification::dispatch($tempEmail);
+                return redirect()->route('verifyEmailPage');
+            } else {
+                return redirect()->back()->with('error', 'Вы уже меняли почту в течении 3 часов.');
+            }
+        }
+        $tempEmail = TempEmail::create([
+            'user_id' => $user->id,
+            'new_email' => $request->input('email'),
+            'token' => Str::uuid(),
+            'expires_at' => Carbon::now()->addMinutes(2),
         ]);
-        $user = User::find(Auth::user()->id);
-        $user->update([
-            'email' => $request->input('email'),
-            'email_verified_at' => NULL,
-            'verified' => false,
-            'email_verify_code' => Str::random(10),
-        ]);
-        ProcessSendEmailVerification::dispatch($user);
-        return redirect()->route('verifyEmailForm');
+        ProcessSendEmailVerification::dispatch($tempEmail);
+        return redirect()->route('verifyEmailPage');
+
     }
 }

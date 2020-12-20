@@ -17,9 +17,9 @@ class VerifiedEmailMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::user()->verified) {
+        if (Auth::user()->is_verified) {
             return $next($request);
         }
-        return redirect()->route('verifyEmail');
+        return redirect()->route('verifyEmailPage');
     }
 }

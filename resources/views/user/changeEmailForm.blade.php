@@ -31,7 +31,7 @@
 
             <form method="post" action="{{ route('changeEmail') }}">
                 <p>
-                    Введите адрес почтового ящика<br>
+                    Введите адрес нового почтового ящика<br>
                 </p>
                 @csrf
                 <div class="input-group mb-3">
@@ -48,7 +48,6 @@
                     <!-- /.col -->
                 </div>
             </form>
-            <a href="{{ route('verifyEmailForm') }}" class="text-center">Подтвердить почту</a>
         </div>
         <!-- /.form-box -->
     </div><!-- /.card -->

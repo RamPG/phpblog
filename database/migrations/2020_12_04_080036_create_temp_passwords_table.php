@@ -1,10 +1,11 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePasswordResetsTable extends Migration
+class CreateTempPasswordsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +14,12 @@ class CreatePasswordResetsTable extends Migration
      */
     public function up()
     {
-        Schema::create('password_resets', function (Blueprint $table) {
-            $table->string('email')->index();
+        Schema::create('temp_passwords', function (Blueprint $table) {
+            $table->id();
+            $table->integer('user_id');
+            $table->string('new_password');
             $table->string('token');
-            $table->timestamp('created_at')->nullable();
+            $table->timestamp('expires_at');
         });
     }
 
@@ -27,6 +30,6 @@ class CreatePasswordResetsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('password_resets');
+        Schema::dropIfExists('temp_passwords');
     }
 }

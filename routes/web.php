@@ -57,10 +57,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/logout', [Controllers\UserController::class, 'logout'])->name('logout');
     Route::get('/change-email', [Controllers\UserController::class, 'changeEmailForm'])->name('changeEmailForm');
     Route::post('/change-email', [Controllers\UserController::class, 'changeEmail'])->name('changeEmail');
-    Route::group(['middleware' => 'unverifiedEmail'], function () {
-        Route::get('/verify-email', [Controllers\UserController::class, 'verifyEmailForm'])->name('verifyEmailForm');
-        Route::post('/verify-email', [Controllers\UserController::class, 'verifyEmail'])->name('verifyEmail');
-    });
+    Route::get('/verify-email', [Controllers\UserController::class, 'verifyEmailPage'])->name('verifyEmailPage');
+    Route::get('/verify-email/{token}', [Controllers\UserController::class, 'verifyEmail'])->name('verifyEmail');
     Route::group(['middleware' => 'verifiedEmail'], function () {
         Route::get('/user/{user}', [Controllers\UserController::class, 'show'])->name('user.show')->where(
             'user', '[0-9]+',

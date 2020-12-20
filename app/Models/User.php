@@ -20,6 +20,16 @@ class User extends Authenticatable
         return $this->hasMany(Comment::class);
     }
 
+    public function tempEmail()
+    {
+        return $this->hasOne(TempEmail::class);
+    }
+
+    public function tempPassword()
+    {
+        return $this->hasOne(TempPassword::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *
@@ -31,9 +41,8 @@ class User extends Authenticatable
         'email',
         'password',
         'avatar',
-        'email_verify_code',
+        'is_verified',
         'email_verified_at',
-        'verified',
     ];
 
     /**
