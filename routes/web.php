@@ -60,6 +60,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/verify-email', [Controllers\UserController::class, 'verifyEmailPage'])->name('verifyEmailPage');
     Route::get('/verify-email/{token}', [Controllers\UserController::class, 'verifyEmail'])->name('verifyEmail');
     Route::group(['middleware' => 'verifiedEmail'], function () {
+        Route::get('change-password', [Controllers\UserController::class, 'changePasswordForm'])->name('changePasswordForm');
+        Route::post('change-password', [Controllers\UserController::class, 'changePassword'])->name('changePassword');
+        Route::get('verify-password/{token}', [Controllers\UserController::class, 'verifyPassword'])->name('verifyPassword');
+        Route::get('/verify-password', [Controllers\UserController::class, 'verifyPasswordPage'])->name('verifyPasswordPage');
         Route::get('/user/{user}', [Controllers\UserController::class, 'show'])->name('user.show')->where(
             'user', '[0-9]+',
         );

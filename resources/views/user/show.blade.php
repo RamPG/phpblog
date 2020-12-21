@@ -22,6 +22,12 @@
             >
                 Изменить почту
             </a>
+            <a
+                class="btn btn-info"
+                href="{{ route('changePasswordForm') }}"
+            >
+                Изменить пароль
+            </a>
         @endif
         <h3>Комментарии</h3>
     </div>

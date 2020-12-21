@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Jobs\ProcessSendEmailVerification;
+use App\Jobs\ProcessSendPasswordVerification;
 use App\Models\Comment;
 use App\Models\TempEmail;
+use App\Models\TempPassword;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class UserController extends Controller
@@ -35,7 +38,7 @@ class UserController extends Controller
             'user_id' => $user->id,
             'new_email' => $request->input('email'),
             'token' => Str::uuid(),
-            'expires_at' => Carbon::now()->addMinutes(2),
+            'expires_at' => Carbon::now()->addHours(3),
         ]);
         ProcessSendEmailVerification::dispatch($tempEmail);
         return redirect()->route('verifyEmailPage');
@@ -138,13 +141,11 @@ class UserController extends Controller
 
     public function changeEmail(Request $request)
     {
-        if (Auth::user()->is_verified)
-        {
+        if (Auth::user()->is_verified) {
             $request->validate([
                 'email' => 'required|email|unique:users,email|unique:temp_emails,new_email,' . Auth::user()->id,
             ]);
-        }
-        else {
+        } else {
             $request->validate([
                 'email' => 'required|email|unique:users,email,' . Auth::user()->id . '|unique:temp_emails,new_email,' . Auth::user()->id,
             ]);
@@ -157,7 +158,7 @@ class UserController extends Controller
                     'user_id' => $user->id,
                     'new_email' => $request->input('email'),
                     'token' => Str::uuid(),
-                    'expires_at' => Carbon::now()->addMinutes(2),
+                    'expires_at' => Carbon::now()->addHours(3),
                 ]);
                 ProcessSendEmailVerification::dispatch($tempEmail);
                 return redirect()->route('verifyEmailPage');
@@ -169,10 +170,79 @@ class UserController extends Controller
             'user_id' => $user->id,
             'new_email' => $request->input('email'),
             'token' => Str::uuid(),
-            'expires_at' => Carbon::now()->addMinutes(2),
+            'expires_at' => Carbon::now()->addHours(3),
         ]);
         ProcessSendEmailVerification::dispatch($tempEmail);
         return redirect()->route('verifyEmailPage');
+    }
 
+    public function changePasswordForm()
+    {
+        return view('user.changePasswordForm');
+    }
+
+    public function changePassword(Request $request)
+    {
+        $request->validate([
+            'password' => 'required|confirmed|min:8',
+            'new_password' => 'required|confirmed|min:8',
+        ]);
+        $password = $request->input('password');
+        $newPassword = $request->input('new_password');
+        $user = Auth::user();
+        if (Hash::check($password, $user->password)) {
+            if ($password !== $newPassword) {
+                $tempPassword = TempPassword::where('user_id', $user->id)->first();
+                if ($tempPassword) {
+                    if ($tempPassword->expires_at <= Carbon::now()) {
+                        $tempPassword->update([
+                            'new_password' => bcrypt($newPassword),
+                            'token' => Str::uuid(),
+                            'expires_at' => Carbon::now()->addHours(24),
+                        ]);
+                        ProcessSendPasswordVerification::dispatch($tempPassword);
+                        return redirect()->route('verifyPasswordPage');
+                    }
+                    return redirect()->back()->with('error', 'Вы уже меняли пароль в течении 24 часов.');
+
+                }
+                $tempPassword = TempPassword::create([
+                    'user_id' => $user->id,
+                    'new_password' => bcrypt($newPassword),
+                    'token' => Str::uuid(),
+                    'expires_at' => Carbon::now()->addHours(24)
+                ]);
+                ProcessSendPasswordVerification::dispatch($tempPassword);
+                return redirect()->route('verifyPasswordPage');
+            }
+            dd('Старый и новый пароли совпадают');
+            return redirect()->back()->with('error', 'Старый и новый пароли совпадают');
+        }
+        dd('Неправильно введен текущий пароль');
+        return redirect()->back()->with('error', 'Неправильно введен текущий пароль');
+
+    }
+
+    public function verifyPasswordPage()
+    {
+        return view('user.passwordVerifyPage');
+    }
+
+    public function verifyPassword(Request $request)
+    {
+        $tempPassword = TempPassword::where('token', $request->route('token'))->first();
+        if ($tempPassword) {
+            if ($tempPassword->expires_at >= Carbon::now()) {
+                $tempPassword->user->update([
+                    'password' => $tempPassword->new_password
+                ]);
+                $tempPassword->delete();
+                session()->flash('success', 'Пароль обновлен');
+                return redirect()->home();
+            }
+            $tempPassword->delete();
+            return redirect()->route('changePasswordForm')->with('error', 'Срок активации прошел');
+        }
+        return redirect()->route('verifyPasswordPage')->with('error', 'Неверный код активации/Срок активации прошел');
     }
 }

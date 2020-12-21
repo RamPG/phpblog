@@ -29,7 +29,7 @@ class Kernel extends ConsoleKernel
         $schedule->call(function (){
             TempPassword::where('expires_at', '<', Carbon::now())->delete();
             TempEmail::where('expires_at', '<', Carbon::now())->delete();
-        })->everyFiveMinutes();
+        })->daily();
     }
 
     /**

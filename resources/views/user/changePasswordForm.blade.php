@@ -29,26 +29,50 @@
                 </div>
             @endif
 
-            <form method="post" action="{{ route('changeEmail') }}">
-                <p>
-                    Введите адрес почтового ящика<br>
-                </p>
+            <form method="post" action="{{ route('changePassword') }}">
                 @csrf
                 <div class="input-group mb-3">
-                    <input type="email" name="email" class="form-control" placeholder="Введите email">
+                    <input type="password" name="password" class="form-control" placeholder="Введите текущий пароль">
                     <div class="input-group-append">
                         <div class="input-group-text">
-                            <span class="fas fa-envelope"></span>
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-group mb-3">
+                    <input type="password" name="password_confirmation" class="form-control"
+                           placeholder="Подтвердите текущий пароль">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group mb-3">
+                    <input type="password" name="new_password" class="form-control" placeholder="Введите новый пароль">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-group mb-3">
+                    <input type="password" name="new_password_confirmation" class="form-control"
+                           placeholder="Подтвердите новый пароль">
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-lock"></span>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <!-- /.col -->
-                    <button type="submit" class="btn btn-primary btn-block">Изменить почту</button>
+                    <button type="submit" class="btn btn-primary btn-block">Изменить пароль</button>
                     <!-- /.col -->
                 </div>
             </form>
-            <a href="{{ route('verifyEmailForm') }}" class="text-center">Подтвердить смену пароля</a>
         </div>
         <!-- /.form-box -->
     </div><!-- /.card -->
