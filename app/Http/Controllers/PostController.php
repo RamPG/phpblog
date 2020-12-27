@@ -18,8 +18,8 @@ class PostController extends Controller
 
     public function show($slug)
     {
-        $post = Post::where('slug', $slug)->firstOrFail();
-        $comments = Comment::where('post_id', '=', $post->id)->paginate(5);
+        $post = Post::where('slug', $slug)->first();
+        $comments = Comment::where('post_id', '=', $post->id)->with('user')->paginate(5);
         return view('post.index', compact('post', 'comments'));
     }
 

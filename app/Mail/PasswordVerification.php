@@ -30,6 +30,6 @@ class PasswordVerification extends Mailable
      */
     public function build()
     {
-        return $this->view('user.passwordVerifyMessage', ['token' => $this->token]);
+        return $this->view('messages.passwordVerifyMessage', ['token' => $this->token]);
     }
 }

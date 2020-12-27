@@ -3,42 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CommentRequest;
 use App\Models\Comment;
-use Illuminate\Http\Request;
 
 class CommentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
     /**
      * Display the specified resource.
      *
@@ -47,13 +16,8 @@ class CommentController extends Controller
      */
     public function showComments($id)
     {
-        $comments = Comment::where('post_id', '=', $id)->paginate(5);
+        $comments = Comment::where('post_id', '=', $id)->with('user')->paginate(5);
         return view('admin.comments.showComments', compact('comments'));
-    }
-
-    public function show($id)
-    {
-
     }
 
     /**
@@ -65,7 +29,7 @@ class CommentController extends Controller
     public function edit($id)
     {
         $comment = Comment::find($id);
-        return view('admin.comments.edit', compact('comment'));
+        return view('admin.comments.edit', ['comment' => $comment]);
     }
 
     /**
@@ -75,15 +39,10 @@ class CommentController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CommentRequest $request, $id)
     {
         $comment = Comment::find($id);
-        $request->validate([
-            'content' => 'required|max:255'
-        ]);
-        $comment->update([
-            'content' => $request->input('content')
-        ]);
+        $comment->updateComment($request->input('content'));
         return redirect()->route('admin.post.comments', ['post' => $comment->post_id]);
     }
 
@@ -95,6 +54,7 @@ class CommentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Comment::destroy($id);
+        return redirect()->back();
     }
 }

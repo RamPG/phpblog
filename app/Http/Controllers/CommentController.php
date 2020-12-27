@@ -2,22 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CommentRequest;
 use App\Models\Comment;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class CommentController extends Controller
 {
-    public function store(Request $request)
+    public function store(CommentRequest $request)
     {
-        $request->validate([
-            'content' => 'required|max:255',
-        ]);
-        Comment::create([
-            'content' => $request->input('content'),
-            'user_id' => Auth::user()->id,
-            'post_id' => $request->input('post_id')
-        ]);
+        $requestData = $request->all();
+        Comment::createComment($requestData, Auth::user()->id);
         return redirect()->back();
     }
 
@@ -33,15 +27,10 @@ class CommentController extends Controller
         return view('post.commentEdit', compact('comment'));
     }
 
-    public function update(Request $request, $id)
+    public function update(CommentRequest $request, $id)
     {
-        $request->validate([
-            'content' => 'required|max:255',
-        ]);
         $comment = Comment::find($id);
-        $comment->update([
-            'content' => $request->input('content'),
-        ]);
+        $comment->updateComment($request->input('content'));
         return redirect()->route('post.show', ['slug' => $comment->post->slug]);
     }
 

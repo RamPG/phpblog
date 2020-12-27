@@ -26,11 +26,25 @@
   <component name="ChangeListManager">
     <list default="true" id="6f7a9d87-ae84-4537-abb3-aa64d46f653e" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Console/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Console/Kernel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Helpers/StringHelpers.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Helpers/Helper.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/CommentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/CommentController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/PostController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/PostController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Admin/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Admin/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/CommentController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/CommentController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/Controller.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/Controller.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/PostController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/PostController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/UserController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Mail/EmailVerification.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Mail/EmailVerification.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/user/changePasswordForm.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/changePasswordForm.blade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/views/user/show.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/user/show.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Mail/PasswordVerification.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Mail/PasswordVerification.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Comment.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Comment.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Post.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Post.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/TempEmail.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/TempEmail.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/TempPassword.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/TempPassword.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/app.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/app.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/user/emailVerifyMessage.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/messages/emailVerifyMessage.blade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/views/user/passwordVerifyMessage.blade.php" beforeDir="false" afterPath="$PROJECT_DIR$/resources/views/messages/passwordVerifyMessage.blade.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/web.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/web.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -192,17 +206,18 @@
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="P:\Programs\CustomServer\httpd\Apache24\htdocs\myblog.lar\resources\views\messages" />
+      <recent name="P:\Programs\CustomServer\httpd\Apache24\htdocs\myblog.lar\resources\views\post" />
+      <recent name="P:\Programs\CustomServer\httpd\Apache24\htdocs\myblog.lar\resources\views" />
+      <recent name="P:\Programs\CustomServer\httpd\Apache24\htdocs\myblog.lar\app\Helpers" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="P:\Programs\CustomServer\httpd\Apache24\htdocs\myblog.lar\storage\app\public\images\default" />
       <recent name="P:\Programs\CustomServer\httpd\Apache24\htdocs\myblog.lar\public" />
       <recent name="P:\Programs\CustomServer\httpd\Apache24\htdocs\myblog.lar\resources\views" />
       <recent name="P:\Programs\CustomServer\httpd\Apache24\htdocs\myblog.lar\resources\views\admin\layouts" />
       <recent name="P:\Programs\CustomServer\httpd\Apache24\htdocs\myblog.lar\public\js" />
-    </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="P:\Programs\CustomServer\httpd\Apache24\htdocs\myblog.lar\resources\views\post" />
-      <recent name="P:\Programs\CustomServer\httpd\Apache24\htdocs\myblog.lar\resources\views" />
-      <recent name="P:\Programs\CustomServer\httpd\Apache24\htdocs\myblog.lar\app\Helpers" />
     </key>
   </component>
   <component name="RunManager">
@@ -273,7 +288,14 @@
       <workItem from="1608389982157" duration="73000" />
       <workItem from="1608459737309" duration="11173000" />
       <workItem from="1608482396369" duration="3984000" />
-      <workItem from="1608565934239" duration="2526000" />
+      <workItem from="1608565934239" duration="2668000" />
+      <workItem from="1608740388502" duration="852000" />
+      <workItem from="1608792198108" duration="8486000" />
+      <workItem from="1608817569117" duration="197000" />
+      <workItem from="1608821153988" duration="12690000" />
+      <workItem from="1608909044583" duration="7770000" />
+      <workItem from="1608961297529" duration="14237000" />
+      <workItem from="1609045310656" duration="21367000" />
     </task>
     <servers />
   </component>
@@ -301,26 +323,26 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="523" y="214" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1536.824@0.0.1536.824" timestamp="1608387481042" />
-    <state x="494" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1608566283035">
+    <state x="494" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1608824831444">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="494" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.824@0.0.1536.824" timestamp="1608566283035" />
+    <state x="494" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1536.824@0.0.1536.824" timestamp="1608824831444" />
     <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1604663207320">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="499" y="159" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1604663207320" />
-    <state x="499" y="167" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1607589179108">
+    <state x="499" y="167" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog" timestamp="1609057302376">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="499" y="167" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1536.824@0.0.1536.824" timestamp="1607589179108" />
+    <state x="499" y="167" key="#com.jetbrains.php.actions.copyPaste.importReferences.PhpImportReferencesDialog/0.0.1536.824@0.0.1536.824" timestamp="1609057302376" />
     <state x="548" y="166" key="FileChooserDialogImpl" timestamp="1608389406434">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="548" y="166" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1608389406434" />
-    <state x="474" y="135" key="NewPhpClassDialog" timestamp="1604940492180">
+    <state x="474" y="135" key="NewPhpClassDialog" timestamp="1608968271669">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="474" y="135" key="NewPhpClassDialog/0.0.1536.824@0.0.1536.824" timestamp="1604940492180" />
+    <state x="474" y="135" key="NewPhpClassDialog/0.0.1536.824@0.0.1536.824" timestamp="1608968271669" />
     <state x="604" y="335" key="NewPhpFileDialog" timestamp="1608485140285">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -329,10 +351,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="277" y="57" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1608389413450" />
-    <state x="425" y="187" key="run.anything.popup" timestamp="1605026934777">
+    <state x="425" y="187" key="run.anything.popup" timestamp="1608793831964">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="425" y="187" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1605026934777" />
+    <state x="425" y="187" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1608793831964" />
     <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1607008694224">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

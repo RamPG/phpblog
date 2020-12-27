@@ -3,13 +3,19 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PostStoreRequest;
+use App\Http\Requests\PostUpdateRequest;
+use App\Models\Comment;
 use App\Models\Post;
-use Illuminate\Http\Request;
-use App\Helpers\StringHelpers;
-use Illuminate\Support\Str;
+use App\Services\Contracts\FileServiceInterface;
 
 class PostController extends Controller
 {
+    public function __construct(FileServiceInterface $fileService)
+    {
+        $this->fileService = $fileService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -37,31 +43,13 @@ class PostController extends Controller
      * @param \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostStoreRequest $request)
     {
-        $request->validate([
-            'title' => 'required|min:5|unique:posts,title',
-            'content' => 'required|min:50',
-            'thumbnail' => 'required|image',
-        ]);
-        $folder = date('Y-m-d');
-        $thumbnail = $request->file('thumbnail')->store("images/{$folder}");
-        Post::create([
-            'title' => $request->input('title'),
-            'slug' => Str::slug($request->input('title')),
-            'description' => StringHelpers::trimSpaceBeforeSpace($request->input('content'), 100),
-            'content' => $request->input('content'),
-            'thumbnail' => $thumbnail,
-        ]);
+        $requestData = $request->all();
+        $thumbnail = $this->fileService->handleUploadedImage($requestData, 'thumbnail');
+        Post::createPost($requestData, $thumbnail);
         return redirect()->route('admin.posts.index');
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param int $id
-     * @return \Illuminate\Http\Response
-     */
 
     /**
      * Show the form for editing the specified resource.
@@ -82,26 +70,12 @@ class PostController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PostUpdateRequest $request, $id)
     {
         $post = Post::find($id);
-        $thumbnail = '';
-        $request->validate([
-            'title' => 'required|min:5|unique:posts,title,' . $id,
-            'content' => 'required|min:50',
-            'thumbnail' => 'image',
-        ]);
-        if ($request->hasFile('thumbnail')) {
-            $folder = date('Y-m-d');
-            $thumbnail = $request->file('thumbnail')->store("images/{$folder}");
-        }
-        $post->update([
-            'title' => $request->input('title'),
-            'slug' => Str::slug($request->input('title')),
-            'description' => StringHelpers::trimSpaceBeforeSpace($request->input('content'), 100),
-            'content' => $request->input('content'),
-            'thumbnail' => $thumbnail ? $thumbnail : $post->thumbnail,
-        ]);
+        $requestData = $request->all();
+        $thumbnail = $this->fileService->handleUploadedImage($requestData, 'thumbnail');
+        $post->updatePost($requestData, $thumbnail);
         return redirect()->route('admin.posts.index');
     }
 
@@ -114,6 +88,7 @@ class PostController extends Controller
     public function destroy($id)
     {
         Post::destroy($id);
+        Comment::where('post_id', $id)->delete();
         return redirect()->route('admin.posts.index');
     }
 

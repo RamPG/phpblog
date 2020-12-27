@@ -3,12 +3,18 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AdminUserUpdateRequest;
 use App\Models\Comment;
 use App\Models\User;
-use Illuminate\Http\Request;
+use App\Services\Contracts\FileServiceInterface;
 
 class UserController extends Controller
 {
+    public function __construct(FileServiceInterface $fileService)
+    {
+        $this->fileService = $fileService;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -21,27 +27,6 @@ class UserController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param int $id
@@ -50,7 +35,7 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::find($id);
-        $comments = Comment::where('user_id', '=', $id)->paginate(5);
+        $comments = Comment::where('user_id', '=', $id)->with('post')->paginate(5);
         return view('admin.users.show', ['user' => $user, 'comments' => $comments]);
     }
 
@@ -73,22 +58,12 @@ class UserController extends Controller
      * @param int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(AdminUserUpdateRequest $request, $id)
     {
         $user = User::find($id);
-        $request->validate([
-            'avatar' => 'image',
-            'name' => 'required|min:5|unique:users,name,' . $id,
-        ]);
-        $avatar = '';
-        if ($request->hasFile('avatar')) {
-            $folder = date('Y-m-d');
-            $avatar = $request->file('avatar')->store("images/{$folder}");
-        }
-        $user->update([
-            'avatar' => $avatar ? $avatar : $user->avatar,
-            'name' => $request->input('name'),
-        ]);
+        $requestData = $request->all();
+        $avatar = $this->fileService->handleUploadedImage($requestData, 'avatar');
+        $user->updateUser($requestData['name'], $avatar);
         return redirect()->route('admin.users.index');
     }
 
@@ -101,6 +76,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         User::destroy($id);
+        Comment::where('user_id', $id)->delete();
         return redirect()->back();
     }
 }

@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Http\Requests\UserRegisterRequest;
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -28,6 +30,47 @@ class User extends Authenticatable
     public function tempPassword()
     {
         return $this->hasOne(TempPassword::class);
+    }
+
+    public static function createUser(UserRegisterRequest $request)
+    {
+        return self::create([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => bcrypt($request->input('password')),
+        ]);
+    }
+
+    public function updatePassword($password)
+    {
+        return $this->update([
+            'password' => $password,
+        ]);
+    }
+
+    public function updateEmail($email)
+    {
+        return $this->update([
+            'email' => $email,
+            'email_verified_at' => Carbon::now(),
+            'is_verified' => true,
+        ]);
+    }
+
+
+    public function changeIsVerifiedField($isVerified)
+    {
+        return $this->update([
+            'is_verified' => $isVerified,
+        ]);
+    }
+
+    public function updateUser($name, $avatar)
+    {
+        return $this->update([
+            'avatar' => $avatar ? $avatar : $this->avatar,
+            'name' => $name,
+        ]);
     }
 
     /**
