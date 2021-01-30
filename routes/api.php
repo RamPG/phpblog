@@ -14,6 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+Route::post('/login', function (Request $request) {
+    $user = \App\Models\User::where('email', $request->input('email'))->first();
+    return response()->json(['token' => $user->createToken('authToken')]);
+});
+
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
